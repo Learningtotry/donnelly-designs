@@ -1,8 +1,6 @@
 If it's not broken, mod it until it is. * Anonymous
 There are only two hard things in Computer Science: cache invalidation and naming things. * Phil Karlton
-Talk is cheap. Show me the code. * Linus Torvalds
 Simplicity is the ultimate sophistication. * Leonardo da Vinci
-Make it simple, but significant. * Don Draper
 Never ask for whom the bell tolls, it tolls for thee. * John Donne
 In the beginning was the Word and the Word was with God and the Word was God. * John 1:1
 If God himself be for me, my hope, my light, my love, what fear what tribulation could drive me from his love... * If God Himself be for Me

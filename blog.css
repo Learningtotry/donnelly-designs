@@ -1,1 +1,360 @@
-/* Custom adjustments for blog page can go here if needed */
+/* Custom adjustments for blog page and articles */
+
+/* Container and layout */
+.article-container {
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Back Link */
+.back-link {
+  margin-bottom: 2rem;
+}
+
+.back-link a {
+  color: #0077b5;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.back-link a:hover {
+  color: #005a8a;
+  transform: translateX(-4px);
+}
+
+/* Metadata */
+.article-meta {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.article-category {
+  background: rgba(0, 119, 181, 0.1);
+  color: #0077b5;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+/* Header */
+.article-detail-title {
+  font-size: 2.75rem;
+  line-height: 1.2;
+  color: #111827;
+  margin: 0 0 1rem 0;
+  font-weight: 800;
+}
+
+.article-author-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.article-author-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+.article-author-name {
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Featured Image */
+.article-featured-image {
+  margin-bottom: 2.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.article-featured-image img {
+  width: 100%;
+  height: auto;
+  max-height: 450px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Article Body Typography */
+.article-body {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #2c3e50;
+}
+
+.article-body p {
+  margin-top: 0;
+  margin-bottom: 1.75rem;
+}
+
+.article-body h2 {
+  font-size: 1.85rem;
+  color: #111827;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.article-body h3 {
+  font-size: 1.45rem;
+  color: #1f2937;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Blockquotes */
+.article-body blockquote {
+  border-left: 4px solid #0077b5;
+  background: #f8fafc;
+  padding: 1.25rem 1.75rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: #4b5563;
+  border-radius: 0 8px 8px 0;
+}
+
+.article-body blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Inline Code and Code Blocks */
+.article-body code {
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9em;
+  background: #f1f5f9;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  color: #e11d48;
+}
+
+.article-body pre {
+  background: #0f172a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 2rem 0;
+  border: 1px solid #1e293b;
+}
+
+.article-body pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: #f8fafc;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  display: block;
+}
+
+/* Lists */
+.article-body ul, 
+.article-body ol {
+  margin-top: 0;
+  margin-bottom: 1.75rem;
+  padding-left: 2rem;
+}
+
+.article-body li {
+  margin-bottom: 0.5rem;
+}
+
+/* Inline Images */
+.article-body figure {
+  margin: 2.5rem 0;
+  text-align: center;
+}
+
+.article-body figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.article-body figcaption {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-top: 0.75rem;
+  font-style: italic;
+}
+
+/* Divider */
+.article-divider {
+  border: 0;
+  height: 1px;
+  background: #e5e7eb;
+  margin: 3rem 0;
+}
+
+/* Info Callout Box */
+.callout-box {
+  background: rgba(0, 119, 181, 0.05);
+  border-left: 4px solid #0077b5;
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+  margin: 2rem 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.callout-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #0077b5;
+}
+
+.callout-content {
+  flex: 1;
+  font-size: 1.05rem;
+  color: #374151;
+}
+
+.callout-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Author Bio Card */
+.author-card {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-top: 3rem;
+  border: 1px solid #e2e8f0;
+}
+
+.author-card-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.author-card-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.author-card-content p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+/* Pagination / Next Prev */
+.article-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.nav-link-card {
+  flex: 1;
+  background: #fff;
+  padding: 1.25rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.nav-link-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.nav-link-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #9ca3af;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.nav-link-title {
+  font-size: 1rem;
+  color: #111827;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  main {
+    padding: 1rem !important; /* Override style.css default padding to save horizontal space */
+  }
+
+  .article-container {
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .article-detail-title {
+    font-size: 2rem;
+  }
+  
+  .author-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  
+  .article-navigation {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links {
+    gap: 1rem !important;
+    padding: 0.75rem !important;
+  }
+  
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+}
+
