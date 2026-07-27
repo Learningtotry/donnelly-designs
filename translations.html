@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Translations - My Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="projects.css">
+  <link rel="stylesheet" href="translations.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="translations.html" class="active">Translations</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="repairs.html">Tech Repairs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="page-header">
+      <h1>Technical Translations</h1>
+      <p>Exploring the details of software, systems, and game localization across multiple languages.</p>
+    </div>
+
+    <!-- Article Roll (Legends of Localization style) -->
+    <div class="article-roll">
+
+      <!-- Article 1 -->
+      <article class="article-card">
+        <div class="article-image-container">
+          <a href="#">
+            <img src="images/translation_thumbnail.png" alt="Japanese Rail Technical Manual" class="article-image">
+          </a>
+        </div>
+        <div class="article-text">
+          <h2 class="article-title">
+            <a href="#">Japanese Technical Specifications - High-Speed Rail Systems (E5 Series)</a>
+          </h2>
+          <p class="article-excerpt">
+            English translation of the original technical manual and specifications for the Shinkansen E5 Series braking
+            control systems. This article breaks down the translation of electro-pneumatic system schematics, safety
+            fail-safe warnings, and energy recuperation metrics, highlighting key differences between technical
+            terminologies.
+          </p>
+        </div>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="article-card">
+        <div class="article-image-container">
+          <a href="#">
+            <img src="images/translation_thumbnail.png" alt="OpenAPI Documentation Russian" class="article-image">
+          </a>
+        </div>
+        <div class="article-text">
+          <h2 class="article-title">
+            <a href="#">OpenAPI 3.1 Spec - Russian Localization & Annotations</a>
+          </h2>
+          <p class="article-excerpt">
+            A complete Russian translation of the OpenAPI 3.1 specifications. Includes detailed inline annotations and
+            terminology guides for REST API design best practices, targeted at Russian developer communities.
+          </p>
+        </div>
+      </article>
+
+      <!-- Article 3 (Hidden by default) -->
+      <article class="article-card hidden">
+        <div class="article-image-container">
+          <a href="#">
+            <img src="images/translation_thumbnail.png" alt="Rust Compiler Guide Chinese" class="article-image">
+          </a>
+        </div>
+        <div class="article-text">
+          <h2 class="article-title">
+            <a href="#">Rust Compiler Dev Guide - Chinese (Simplified) Translation</a>
+          </h2>
+          <p class="article-excerpt">
+            Translated guide on the query system of the Rust compiler (rustc). Explains query-driven compilation,
+            caching mechanisms, incremental compilation passes, and localized troubleshooting examples.
+          </p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- View More Button Container -->
+    <div class="view-more-container">
+      <button class="view-more-btn" id="view-more-btn">View More Translations</button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">
+        <div class="social-links">
+          <a href="#" target="_blank">Hackster.io</a>
+          <a href="#" target="_blank">LinkedIn</a>
+        </div>
+        <p>&copy; 2026 My Portfolio</p>
+      </div>
+
+      <div class="footer-center">
+        <img src="images/black_mage.png" alt="Black-Mage" id="black-mage" class="footer-photo">
+      </div>
+
+      <div class="footer-right">
+        <span id="footer-quote"></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- View More Script -->
+  <script>
+    const viewMoreBtn = document.getElementById('view-more-btn');
+    const hiddenArticles = document.querySelectorAll('.article-card.hidden');
+
+    if (viewMoreBtn) {
+      viewMoreBtn.addEventListener('click', () => {
+        hiddenArticles.forEach(article => {
+          article.classList.remove('hidden');
+        });
+        viewMoreBtn.style.display = 'none'; // Hide button after showing everything
+      });
+    }
+  </script>
+
+  <script src="quotes.js"></script>
+</body>
+
+</html>

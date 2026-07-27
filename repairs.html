@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Repairs - My Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="projects.css">
+  <link rel="stylesheet" href="repairs.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="translations.html">Translations</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="repairs.html" class="active">Tech Repairs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="page-header">
+      <h1>Tech Repairs</h1>
+      <p>Documenting hardware repair logs, console modifications, and retro electronics restoration work.</p>
+    </div>
+
+    <!-- Article Roll (Legends of Localization style) -->
+    <div class="article-roll">
+
+      <!-- Repair 1 -->
+      <article class="article-card">
+        <div class="article-image-container">
+          <a href="#">
+            <img src="images/repairs_thumbnail.png" alt="Game Boy Advance SP Mod" class="article-image">
+          </a>
+        </div>
+        <div class="article-text">
+          <h2 class="article-title">
+            <a href="#">Game Boy Advance SP - IPS Backlight Screen & Shell Modification</a>
+          </h2>
+          <p class="article-excerpt">
+            A step-by-step restoration of a heavily worn AGS-001 Game Boy Advance SP. Includes replacing the front-lit
+            screen with a modern, high-contrast IPS LCD panel, installing a custom transparent shell, and upgrading the
+            battery with a custom high-capacity LiPo cell.
+          </p>
+        </div>
+      </article>
+
+      <!-- Repair 2 -->
+      <article class="article-card">
+        <div class="article-image-container">
+          <a href="#">
+            <img src="images/repairs_thumbnail.png" alt="MacBook Pro Repair" class="article-image">
+          </a>
+        </div>
+        <div class="article-text">
+          <h2 class="article-title">
+            <a href="#">MacBook Pro 15-inch - Thermal Repaste & Internal Dusting</a>
+          </h2>
+          <p class="article-excerpt">
+            Diagnosing overheating and fan throttling issues on a legacy MacBook Pro. Walkthrough of removing old
+            dried-out thermal paste, cleaning dual blower fans, applying Arctic MX-4 thermal compound, and measuring
+            temperature drops under load.
+          </p>
+        </div>
+      </article>
+
+      <!-- Repair 3 (Hidden by default) -->
+      <article class="article-card hidden">
+        <div class="article-image-container">
+          <a href="#">
+            <img src="images/repairs_thumbnail.png" alt="Keyboard Modding" class="article-image">
+          </a>
+        </div>
+        <div class="article-text">
+          <h2 class="article-title">
+            <a href="#">Custom Mechanical Keyboard - Desoldering & Lubing Gateron Switches</a>
+          </h2>
+          <p class="article-excerpt">
+            Desoldering factory switches from a hot-swap-incompatible mechanical keyboard, cleaning the PCB contacts,
+            lubricating Gateron Brown switches with Krytox 205g0, and soldering them back to achieve a quieter, premium
+            tactile feel.
+          </p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- View More Button Container -->
+    <div class="view-more-container">
+      <button class="view-more-btn" id="view-more-btn">View More Repairs</button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">
+        <div class="social-links">
+          <a href="#" target="_blank">Hackster.io</a>
+          <a href="#" target="_blank">LinkedIn</a>
+        </div>
+        <p>&copy; 2026 Andrew Donnelly</p>
+      </div>
+
+      <div class="footer-center">
+        <img src="images/black_mage.png" alt="Black-Mage" id="black-mage" class="footer-photo">
+      </div>
+
+      <div class="footer-right">
+        <span id="footer-quote"></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- View More Script -->
+  <script>
+    const viewMoreBtn = document.getElementById('view-more-btn');
+    const hiddenArticles = document.querySelectorAll('.article-card.hidden');
+
+    if (viewMoreBtn) {
+      viewMoreBtn.addEventListener('click', () => {
+        hiddenArticles.forEach(article => {
+          article.classList.remove('hidden');
+        });
+        viewMoreBtn.style.display = 'none'; // Hide button after showing everything
+      });
+    }
+  </script>
+
+  <script src="quotes.js"></script>
+</body>
+
+</html>

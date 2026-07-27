@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="translations.html">Translations</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="repairs.html">Tech Repairs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section id="home" class="title-block">
+      <div class="title-block-content">
+        <div class="profile-container">
+          <img src="images/profile.png" alt="Andrew's Profile" class="profile-image">
+        </div>
+        <h1 id="my-name">Andrew Donnelly</h1>
+        <p></p>
+        <p>こんにちわ I'm Andrew D., a man who believes his life's purpose involves becoming one of the greatest hardware engineers on the planet. Currently a student at UC Davis double majoring in Electrical and Comptuer Engineering. </p>
+        <p>I'm into the most important things that I don't know about circuits and I'm focused on remediating my greatest shortfallings. I orient myself to the best path, in spite of the difficulty it presents and I push on in spite of the difficulty.</p>
+        <p>I am currently doing freelance electronics repair in Sacramento and online Japanese technical translation for patents, technical articles, textbooks, and religious texts feel free to contact me to request my services.</p>
+        <p>I aim to be a blessing to you as my Lord would have it and to be able to steward the opportunities and resources gifted to me by the Almighty.</p>
+        <p>Soli Deo Gloria ✙</p>
+      </div>
+    </section>
+
+    <section id="projects" class="section-block">
+      <h2><a href="projects.html" class="section-title-link">Projects</a></h2>
+      <div class="article-grid">
+        <article class="card clickable-card" onclick="window.location.href='projects.html'">
+          <h3>Quantum Web App</h3>
+          <p>An advanced developer console designed for tracking cloud computing metrics in real-time.</p>
+        </article>
+        <article class="card clickable-card" onclick="window.location.href='projects.html'">
+          <h3>PyStream Analytics</h3>
+          <p>A python-based streaming telemetry engine designed for processing high-throughput IoT sensor data.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="translations" class="section-block">
+      <h2><a href="translations.html" class="section-title-link">Translations</a></h2>
+      <div class="article-grid">
+        <article class="card clickable-card" onclick="window.location.href='translations.html'">
+          <h3>Japanese Rail Specs</h3>
+          <p>English translation of the original technical manual and specifications for Shinkansen E5 braking systems.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="blog" class="section-block">
+      <h2><a href="blog.html" class="section-title-link">Blog Articles</a></h2>
+      <div class="article-grid">
+        <article class="card clickable-card" onclick="window.location.href='blog.html'">
+          <h3>The Art of Hardware Diagnostics</h3>
+          <p>An in-depth guide to identifying faults in custom microcontrollers using logic analyzers, digital oscilloscopes, and custom breakout probes.</p>
+        </article>
+        <article class="card clickable-card" onclick="window.location.href='blog.html'">
+          <h3>Deciphering Legacy Character Encodings</h3>
+          <p>A software developer's retrospective on historical character encoding systems, from Shift-JIS to UTF-8.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="repairs" class="section-block">
+      <h2><a href="repairs.html" class="section-title-link">Tech Repairs</a></h2>
+      <div class="article-grid">
+        <article class="card clickable-card" onclick="window.location.href='repairs.html'">
+          <h3>Game Boy Advance SP Mod</h3>
+          <p>Installing an IPS backlit screen and custom transparent shell replacement on a retro console.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">
+        <div class="social-links">
+          <a href="#" target="_blank">Hackster.io</a>
+          <a href="#" target="_blank">LinkedIn</a>
+        </div>
+        <p>&copy; 2026 Andrew Donnelly</p>
+      </div>
+
+      <div class="footer-center">
+        <img src="images/black_mage.png" alt="Black-Mage" id="black-mage" class="footer-photo">
+      </div>
+      <div class="footer-right">
+        <span id="footer-quote"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="quotes.js"></script>
+</body>
+
+</html>

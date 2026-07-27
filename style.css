@@ -1,0 +1,277 @@
+/* Core Styling & Custom Cursor */
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+  line-height: 1.6;
+  position: relative;
+  min-height: 100vh;
+
+  /* Replace 'custom-cursor.png' with your image file */
+  /* The 0 0 indicates the click hotspot coordinates (top-left) */
+  cursor: url('custom-cursor.png') 0 0, auto;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('images/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.92;
+  /* Subtle whole page static background image */
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Ensure links still show a pointer (or a second custom cursor) */
+a,
+button {
+  cursor: pointer;
+  /* Example: cursor: url('hover-cursor.png') 0 0, pointer; */
+}
+
+/* Navigation */
+header {
+  background-color: #222;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  color: #0077b5;
+  /* Highlight color on hover */
+}
+
+/* Layout */
+main {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.title-block {
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.title-block-content {
+  overflow: auto;
+}
+
+.section-block {
+  padding: 4rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+#my-name {
+  font-family: 'El Messiri', 'Georgia';
+  font-size: 2.8rem;
+  color: rgb(37, 37, 251);
+  text-shadow:
+    0 0 5px #00d2ff,
+    0 0 15px #83108d;
+  margin: 1.5rem 0;
+  padding: 0.5rem 2.5rem;
+  display: inline-block;
+  border-left: 4px solid;
+  box-shadow: -10px 0 20px -5px rgba(0, 210, 255, 0.8);
+}
+/* Home Section Layout */
+#home {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  text-align: left;
+  padding: 5rem 4.5rem;
+  border-radius: 2px;
+  background: #012311;
+  box-shadow: 0 4px 12px rgba(5, 203, 61, 0.625),
+  0 0 46px rgba(5, 203, 61, 0.8),
+  0 0 56px rgba(5, 203, 61, 0.8),
+  0 0 66px rgba(5, 203, 61, 0.8),
+  0 0 76px rgba(4, 104, 32, 0.536);
+  
+  margin-bottom: 2rem;
+  max-width: 60%;
+  margin-right: auto;
+}
+
+/* Profile Picture Styling */
+.profile-container {
+  float: left;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+  width: 150px;
+  height: auto;
+  border-radius: 0;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Article Cards */
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.clickable-card {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.clickable-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.section-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.section-title-link:hover {
+  color: #0077b5;
+  text-decoration: underline;
+}
+
+.bio-card {
+  background: #fff;
+}
+
+/* Footer */
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: #222;
+  color: #fff;
+  gap: 2rem;
+}
+
+.footer-content {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.footer-left p {
+  margin: 0;
+}
+
+.footer-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-right {
+  max-width: 350px;
+  text-align: right;
+  font-style: italic;
+  color: #888;
+  /* Dark grey text */
+  font-size: 0.9rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.footer-bottom-photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-top: 1px solid #333;
+  padding-top: 1.5rem;
+}
+
+.footer-photo {
+  width: 48px;
+  height: 48px;
+  object-fit: scale-down;
+  image-rendering: pixelated;
+}
+
+.quote-author {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.social-links a {
+  color: #0077b5;
+  text-decoration: none;
+  margin-right: 1.5rem;
+  font-weight: bold;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-left {
+    align-items: center;
+  }
+
+  .footer-right {
+    text-align: center;
+    max-width: 100%;
+  }
+}
