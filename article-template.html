@@ -75,85 +75,9 @@
         </p>
 
         <!-- TEMPLATE NOTE: Code Blocks (pre + code) -->
-        <pre><code>// Example microcontroller diagnostics script
-int sensorPin = A0;    // select the input pin for the potentiometer
-int ledPin = 13;      // select the pin for the LED
-int sensorValue = 0;  // variable to store the value coming from the sensor
 
-void setup() {
-  pinMode(ledPin, OUTPUT);
-  Serial.begin(9600);
-}
 
-void loop() {
-  sensorValue = analogRead(sensorPin);
-  Serial.println(sensorValue);
-  digitalWrite(ledPin, HIGH);
-  delay(sensorValue);
-  digitalWrite(ledPin, LOW);
-  delay(sensorValue);
-}</code></pre>
-
-        <!-- TEMPLATE NOTE: Sub-headings (H3) -->
-        <h3>Subsection Heading (H3)</h3>
-        
-        <p>
-          You can also use inline code wrappers like <code>analogRead()</code> or <code>volatile uint8_t</code> inside paragraphs to denote variables, registers, functions, or filenames.
-        </p>
-
-        <!-- TEMPLATE NOTE: Info/Warning Callout Box -->
-        <div class="callout-box">
-          <div class="callout-icon">💡</div>
-          <div class="callout-content">
-            <p><strong>Pro Tip:</strong> When using analog inputs in high-noise environments, consider adding a 0.1µF ceramic decoupling capacitor close to the input pin to filter out high-frequency noise.</p>
-          </div>
-        </div>
-
-        <!-- TEMPLATE NOTE: Blockquotes -->
-        <blockquote>
-          <p>
-            "If it's not broken, mod it until it is."
-          </p>
-          <cite>&mdash; Anonymous Hardware Modder</cite>
-        </blockquote>
-
-        <h2>Formatting Options</h2>
-        
-        <p>
-          Here's how lists look inside the blog article layout:
-        </p>
-
-        <!-- TEMPLATE NOTE: Unordered Lists -->
-        <ul>
-          <li><strong>Multimeters:</strong> Essential for checking resistance, voltage, and continuity.</li>
-          <li><strong>Oscilloscopes:</strong> Crucial for analyzing high-speed digital signals and bus protocols.</li>
-          <li><strong>Logic Analyzers:</strong> Best for debugging digital serial lines like SPI, I2C, or UART.</li>
-        </ul>
-
-        <!-- TEMPLATE NOTE: Ordered Lists -->
-        <p>And for sequential instructions, here is an ordered list:</p>
-        <ol>
-          <li>De-solder the old electrolytic capacitors from the PCB.</li>
-          <li>Clean the solder pads using copper braid/wick and isopropyl alcohol.</li>
-          <li>Install high-quality modern replacements with identical voltage/capacitance ratings.</li>
-          <li>Verify proper polarity before soldering the new leads in place.</li>
-        </ol>
-
-        <!-- TEMPLATE NOTE: Figures (Images with Captions) -->
-        <figure>
-          <!-- Replace this with a real image path if needed -->
-          <img src="../images/repairs_thumbnail.png" alt="Hardware Repair Tools">
-          <figcaption>Figure 1: Keep a clean workbench to ensure small surface-mount components aren't lost.</figcaption>
-        </figure>
-
-        <p>
-          This completes the default template sample. You can delete or duplicate any of these sections to write your actual articles!
-        </p>
-
-      </div>
-
-      <!-- Divider -->
-      <hr class="article-divider">
+        <hr class="article-divider">
 
       <!-- Author Bio Section -->
       <div class="author-card">

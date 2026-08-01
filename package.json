@@ -1,0 +1,11 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "description": "Andrew Donnelly's personal website portfolio",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "author": "Andrew Donnelly",
+  "license": "ISC"
+}

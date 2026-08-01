@@ -14,16 +14,22 @@
 
   <!-- Navigation -->
   <header>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="index.html#home">Home</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="translations.html" class="active">Translations</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="repairs.html">Tech Repairs</a></li>
-      </ul>
-    </nav>
-  </header>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html#home" class="nav-home">Home</a></li>
+      <li><a href="projects.html" class="nav-projects">Projects</a></li>
+      <li><a href="translations.html" class="nav-translations active">Translations</a></li>
+      <li><a href="blog.html" class="nav-blog">Blog</a></li>
+      <li><a href="repairs.html" class="nav-repairs">Tech Repairs</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+
+
+
+
 
   <!-- Main Content -->
   <main>
@@ -67,24 +73,29 @@
 
   <!-- Footer -->
   <footer>
-    <div class="footer-content">
-      <div class="footer-left">
-        <div class="social-links">
-          <a href="#" target="_blank">Hackster.io</a>
-          <a href="#" target="_blank">LinkedIn</a>
-        </div>
-        <p>&copy; 2026 My Portfolio</p>
+  <div class="footer-content">
+    <div class="footer-left">
+      <div class="social-links">
+        <a href="https://hackaday.io/projects/hacker/1837318" target="_blank">Hackaday</a>
       </div>
-
-      <div class="footer-center">
-        <img src="images/black_mage.png" alt="Black-Mage" id="black-mage" class="footer-photo">
-      </div>
-
-      <div class="footer-right">
-        <span id="footer-quote"></span>
-      </div>
+      <p>&copy; 2026 Andrew Donnelly</p>
     </div>
-  </footer>
+
+    <div class="footer-center">
+      <img src="images/black_mage.png" alt="Black-Mage" id="black-mage" class="footer-photo">
+    </div>
+
+    <div class="footer-right">
+      <span id="footer-quote"></span>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
 
   <!-- View More Script -->
   <script>
@@ -101,7 +112,7 @@
     }
   </script>
 
-  <script src="quotes.js"></script>
+  <script src="quotes.js" data-root=""></script>
 </body>
 
 </html>
