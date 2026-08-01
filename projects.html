@@ -33,65 +33,41 @@
 
     <!-- Article Roll (Legends of Localization style) -->
     <div class="article-roll">
-
-      <!-- Project 1 -->
+      <!-- PROJECTS_START -->
+      <!-- Project: 3D printed mushroom with spinning top via ball bearings -->
       <article class="article-card">
         <div class="article-image-container">
-          <a href="https://github.com/andrew-donnelly" target="_blank">
-            <img src="images/project_thumbnail.png" alt="Quantum Web App" class="article-image">
+          <a href="projects/3d_printed_Mushroom.html">
+            <img src="images/3d_printed_mushroom/mushroom_3.jpg" alt="3D printed mushroom with spinning top via ball bearings" class="article-image">
           </a>
         </div>
         <div class="article-text">
           <h2 class="article-title">
-            <a href="https://github.com/andrew-donnelly" target="_blank">Quantum Web App - Next-Gen Web Dashboard</a>
+            <a href="projects/3d_printed_Mushroom.html">3D printed mushroom with spinning top via ball bearings</a>
           </h2>
           <p class="article-excerpt">
-            An advanced developer console designed for tracking cloud computing metrics in real-time. Features
-            interactive charts, dark mode, high-performance canvas rendering, and integration with popular CI/CD
-            services. Built with Next.js and Tailwind CSS.
+            Hello all, this article will guide you through how you can make your own 3d printed mushroom and give it a spinning top. First let's look at the tools you'll need.
           </p>
         </div>
       </article>
 
-      <!-- Project 2 -->
+      <!-- Project: Cross Light -->
       <article class="article-card">
         <div class="article-image-container">
-          <a href="https://github.com/andrew-donnelly" target="_blank">
-            <img src="images/project_thumbnail.png" alt="PyStream Analytics" class="article-image">
+          <a href="projects/Cross_light.html">
+            <img src="images/deicing_aircraft.png" alt="Cross Light" class="article-image">
           </a>
         </div>
         <div class="article-text">
           <h2 class="article-title">
-            <a href="https://github.com/andrew-donnelly" target="_blank">PyStream Analytics - High-Throughput Data
-              Pipeline</a>
+            <a href="projects/Cross_light.html">Cross Light</a>
           </h2>
           <p class="article-excerpt">
-            A python-based streaming telemetry engine designed for processing high-throughput IoT sensor data. Supports
-            custom pipeline configurations, hot-reloading configurations, and direct output to TimescaleDB.
+            This project was really something I've been trying for a while. I didn't know it but all the things I was learning in Analogue design really gave me the background knowledge I needed to get through this jungle, and it seems so simple too!
           </p>
         </div>
       </article>
-
-      <!-- Project 3 (Hidden by default to demonstrate overflow / View More) -->
-      <article class="article-card hidden">
-        <div class="article-image-container">
-          <a href="https://github.com/andrew-donnelly" target="_blank">
-            <img src="images/project_thumbnail.png" alt="CyberGuard Security" class="article-image">
-          </a>
-        </div>
-        <div class="article-text">
-          <h2 class="article-title">
-            <a href="https://github.com/andrew-donnelly" target="_blank">CyberGuard Security - Localized Encryption
-              Engine</a>
-          </h2>
-          <p class="article-excerpt">
-            A lightweight localized security engine that encrypts user credentials using modern cryptographic
-            primitives. Protects local configuration files on shared server environments with a zero-knowledge proof
-            framework.
-          </p>
-        </div>
-      </article>
-
+      <!-- PROJECTS_END -->
     </div>
 
     <!-- View More Button Container -->
@@ -127,6 +103,9 @@
     const hiddenArticles = document.querySelectorAll('.article-card.hidden');
 
     if (viewMoreBtn) {
+      if (hiddenArticles.length === 0) {
+        viewMoreBtn.style.display = 'none';
+      }
       viewMoreBtn.addEventListener('click', () => {
         hiddenArticles.forEach(article => {
           article.classList.remove('hidden');
