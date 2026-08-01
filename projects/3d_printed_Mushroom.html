@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- TEMPLATE NOTE: Replace the title below with your article's title -->
+  <title>Article Title - My Blog</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../blog.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="translations.html">Translations</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="repairs.html">Tech Repairs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <article class="article-container">
+      
+      <!-- Back Link -->
+      <div class="back-link">
+        <a href="blog.html">&larr; Back to Blog</a>
+      </div>
+
+      <!-- Article Header -->
+      <div class="article-header">
+        <div class="article-meta">
+          <!-- TEMPLATE NOTE: Update the category pill, date, and reading time -->
+          <span class="article-date">July 30, 2026</span>
+        </div>
+        
+        <h1 class="article-detail-title">3D printed mushroom with spinning top via ball bearings</h1>
+        
+        <div class="article-author-info">
+          <img src="../images/profile.png" alt="Andrew Donnelly" class="article-author-img">
+          <span class="article-author-name">Andrew Donnelly</span>
+        </div>
+      </div>
+
+      <!-- Featured Image -->
+      <div class="article-featured-image">
+        <img src="../images/3d_printed_mushroom/mushroom_3.jpg" alt="Featured article cover image">
+      </div>
+
+      <!-- Article Body -->
+      <div class="article-body">
+        <p>
+          Hello all, this article will guide you through how you can make your own 3d printed mushroom and give it a spinning top. First let's look at the tools you'll need.
+        </p>
+
+        <ul>
+            <li>A heat gun</li>
+            <li>3d printer + filament (ABS or PETG work)</li>
+            <li>Altimaker Cura (free software)</li>
+            <li>Fusion 360 (free for students)</li>
+            <li>Ball bearing</li>
+        </ul>
+
+        <p>
+            If you just want to make the final thing and not learn about 3d modeling, you'll be able to find the files at the end of this article.
+        </p>
+
+        <h2>Making the cap</h2>
+        <p>You'll need to design two parts: The Stem and the head. This seems simple enough, right? But you're also going to have to incorporate the ball bearing and learn a little physics on the way. Let's start with the head. Start with a cylinder and then use cylindrical symmetry in the forms workspace. You'll want to curve in the the top to in a sort of wavy shape when seen from the side. Go to a side view and do this manually.</p>
+        <p>After you've done that, you'll need to seal the top of the cap. There's a button in the form workspace that will do this once you've selecte the top. Then for some aesthetics use push-pull to give the head a little uniqueness. Don't worry too much about how it looks, it really comes together when you print it and try exploring random tools just for the aesthetics. At the end, Just make a sketch on the base XY plane and extrude a cylinder to make a hole the size of the outer ring of your ball bearing and then about 2mm more in diameter and extrude it up about 5 millimeters. </p>
+
+        <h2>Stem</h2>
+        <p>
+        Now making the stem, this is where we do a little engineering. You don't want a straight vertical stem, making an elegant S-curve as Mark Kistler points out makes things way more interesting. Once again do the combination Cylinder -> -> Symmetry -> Push-Pull combo to your aesthetic delight. Just make sure that the stem at the top is the inner radius of your ball bearing and the bottom is flat (you can find a flatten tool in the forms workspace to do this for you or just form a plane at the bottom). However, after this we need to do a little physics.
+        </p>
+        <img src="../images/3d_printed_mushroom/mushroom_2.jpg" alt="Mushroom">
+        <p>
+          One thing you learn in physics is called the center of mass. The center of mass is the center of all the weight of an object. For a ball, this is the center, same for a cube or a cylinder. For things like a cone, it gets more tricky and with curvy, organic shapes it becomes an algorithmic issue. <strong>But why do we care?</strong> Because if you have the center of mass directly over your base, then you're print balances! Yes, that is the secret of why things tip over! This is true for everything from bowling pins (if the center of mass goes over the edge of the base as it tilts, it will fall) to rocks (the center of mass must be right over the base to get them to stand up.) When you think of it this way, a lot of things make sense. That's practical physics!
+        </p>
+        <p>
+          Fusion has a tool for this actually. Using the center of mass tool in the design workspace inspect menu. When you're finding the center of mass of the entire object, make sure to select both the body of the stem and the head of the mushroom. The center of mass will be displayed on the screen. You can then adjust the shape of the stem until the center of mass is directly over the center of the base. For good measure, I also included the McMaster-Carr Ball bearing in the stem in order to be more accurate, but it won't affect the center of mass at all.
+        </p>
+        <img src="../images/3d_printed_mushroom/mushroom_5.jpg" alt="Mushroom">
+        
+        <h2>Finalizing and Printing</h2>
+        <p>
+          Once you're done designing, you'll want to export the head and stem as .STL files. I use Altimaker Cura to slice my models, you can find other resources to set it up online. After printing it you'll need to use a heat gun to melt the plastic around the Ball bearing to seal the bearing in the head. Your bearing is intially loose, but after melting it should be solid. The bearing will spin around the stem but will be stationary in the cap. And with that you're done! I hope you learned a lot about physics and got some experience with professional CAD tools through this article.
+        </p>
+        <img src="../images/3d_printed_mushroom/mushroom_4.jpg" alt="Mushroom">
+        <blockquote>
+          <p>
+            "Politics isn't about winners and losers, it's about learners and non-learners"
+          </p>
+          <cite>&mdash; I. Forgetwho</cite>
+        </blockquote>
+
+      </div>
+
+      <hr class="article-divider">
+
+      <!-- Author Bio Section -->
+      <div class="author-card">
+        <img src="../images/profile.png" alt="Andrew Donnelly" class="author-card-img">
+        <div class="author-card-content">
+          <h3>About Andrew Donnelly</h3>
+          <p>
+            Andrew is a student at UC Davis double majoring in Electrical and Computer Engineering. He does freelance electronics repair in Sacramento and technical translation online.
+          </p>
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">
+        <div class="social-links">
+          <a href="#" target="_blank">Hackster.io</a>
+          <a href="#" target="_blank">LinkedIn</a>
+        </div>
+        <p>&copy; 2026 Andrew Donnelly</p>
+      </div>
+
+      <div class="footer-center">
+        <img src="images/black_mage.png" alt="Black-Mage" id="black-mage" class="footer-photo">
+      </div>
+
+      <div class="footer-right">
+        <span id="footer-quote"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="quotes.js"></script>
+</body>
+
+</html>

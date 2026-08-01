@@ -198,11 +198,18 @@
   text-align: center;
 }
 
-.article-body figure img {
+.article-body figure img,
+.article-body img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: block;
+  margin: 2.5rem auto;
+}
+
+.article-body figure img {
+  margin: 0 auto;
 }
 
 .article-body figcaption {

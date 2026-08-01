@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- TEMPLATE NOTE: Replace the title below with your article's title -->
+  <title>Article Title - My Blog</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="blog.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="translations.html">Translations</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="repairs.html">Tech Repairs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <article class="article-container">
+      
+      <!-- Back Link -->
+      <div class="back-link">
+        <a href="blog.html">&larr; Back to Blog</a>
+      </div>
+
+      <!-- Article Header -->
+      <div class="article-header">
+        <div class="article-meta">
+          <!-- TEMPLATE NOTE: Update the category pill, date, and reading time -->
+          <span class="article-date">July 31, 2026</span>
+        </div>
+        
+        <!-- TEMPLATE NOTE: Update the main H1 title -->
+        <h1 class="article-detail-title">Example Article Title: Designing for Hardware Longevity</h1>
+        
+        <div class="article-author-info">
+          <img src="images/profile.png" alt="Andrew Donnelly" class="article-author-img">
+          <span class="article-author-name">Andrew Donnelly</span>
+        </div>
+      </div>
+
+      <!-- Featured Image -->
+      <div class="article-featured-image">
+        <img src="images/deicing_aircraft.png" alt="Featured article cover image">
+      </div>
+
+      <!-- Article Body -->
+      <div class="article-body">
+        
+        <!-- TEMPLATE NOTE: Replace this paragraph with your article intro -->
+        <p>
+          This project was really something I've been trying for a while. I didn't know it but all the things I was learning in Analogue design really gave me the background knowledge I needed to get through this jungle, and it seems so simple too!
+        </p>
+
+        <i>Prologue</i>
+        <p>
+          So, when I teach Sunday school I give the kids something if they get their memory verse done. So I decided I'd make them a PCB with a heart-shaped LED array on it. There's a combination cross and heart pattern that blinks on and off and (for special effect) a 'breathing' LED in the center which will get brighter and darker at more or less 1Hz (which corresponds to 60bps, a normal heartrate.)
+        </p>
+        <h2>LED array: Power and complications</h2>
+        <p>
+          So, I thought <i>I bet I can do this without a microcontroller even! All I need is a 555 timer which goes to the input of the LED's, slap a ground on the other end and boom</i>. As this is electronics, things get complex when you transition from what you like thinking the world is like to the complexity of reality's interlocking imperfections (or should I say incomprehensible perfections.) After doing a little research and discussing the idea, I realized that driving 14 LEDs from the output of a 555 timer is actually totally bananas.
+        </p>
+        <p>Think of it like this
+          <math display="block">
+            <mrow>
+              <mi>14 LEDs</mi> 
+              <mo>=</mo>
+              <mi>14</mi>
+              <mo>*</mo>
+              <mi>20mA</mi>
+              <mo>=</mo>
+              <mi>280mA</mi>
+            </mrow>
+          </math>
+          What this means is that my 555 would need to output 280mA. I'm not sure if this would cause it to overheat and go into thermal shutdown or if it would just melt the whole thing, but needless to say, the result would be disappointing. After some searching online I figured out the miraculous power NMOS was the solution to my problems. Instead of having the 555 output get slurped up by the disgusting number of LEDs, I just put the output on the Gate of the NMOS. The NMOS itself is low-side (which just means it connects from the cathode of the LED to ground instead of connecting between power and the anode.)
+        </p>
+
+        <p>
+          So that was one problem which actually took a surprising amount of time to figure out, but honestly not nearly as bad as the second problem
+        </p>
+
+        <h2>My brain is digital but my heart is analogue</h2>
+        <p>
+          I wanted just one LED, just <i>one</i> to have an asymmetric breathing pattern. I think I've actually learned to not say at the outset 'what can go wrong' and instead approach such problems with 'Until the problem is solved, the solution is probably mind-boggling.'
+        </p>
+        <h3>Low-pass filtering</h3>
+        <p>Surely all I need is a low-pass filter right? If I do that then I can just smooth out that voltage and the problem will be solved. And, that would work if I was okay with a symmetric beat. But I wasn't content with that, and I wanted to challenge myself anyway. I could have added another 555 timer, but that would be more or less a cop-out and the hareder road has usually led me to immense fields of knowledge.</p>
+
+        <p>First, I wanted the time to be about 20% rising and 80% falling and I wanted a smooth wave that was basically always going up or down (so, it doesn't plateau at either end completely.)</p>
+
+        <p>My plan of action was
+        <ol>
+          <li>Make the clock asymmetric manually</li>
+          <li>Put it through a low-pass filter</li>
+          <li>Put this into a NPN with sufficient biasing in the linear region</li>
+        </ol>
+        if this sounds overly-complicated to simply get a breathing effect, yes it is. The thing is, I'm doing this to solidify my skills and anyway if I wanted it simple I could just have another power MOSFET put an ATTiny on the board (though, I'd need another voltage regulator for that or I'd have to switch to 3.3V for the 555.) Anyway, I thought it would be great to actually work with transistors in the linear region to put my analogue skills to the test.
+        </p>
+        <h2>Moby Voltage: The Great Green Mounds</h2>
+        <p>My methodology was more or less working backwards from what I know I needed. I put my LED and resistor in series and the NPN under them. I know I needed my current to go up to 20mA from something under 10mA to really see that breathing. To get 20mA collector current through the NPN, I needed to bias the base into the linear region and get voltage fluctuations of sufficient magnitude so that it would shift the collector current up and down.</p>
+
+        <p>The hardest part in doing this is getting the voltage shifts into the base. To keep the biasing regime separate from the input voltage, you need a sufficiently large capacitor, but at some point that can start interfering with the voltage input.</p>
+
+        <p>I realized I could shift the down-time of the clock by using a low-pass filter to smooth my clock signal and then using a comparator against a reference voltage. Depending on what reference voltage I chose, I could have any split I wanted.</p>
+
+        <h2>The Comparator Diaries</h2>
+        <p>This turned out to have many little tidbits that I had to learn via falling down. The first was that since comparators operate on +/- supply voltage instead of just + and ground, the voltage that I was comparing against couldn't be anything above 2.5V (since I'm using a 5V supply) because ground is actually halfway from + to - or 2.5V already. This made using the 555 signal really challenging because it operated on 5V.</p>
+        <p>
+          To resolve this, I used 2 1kohm resistors as a voltage divider before my low-pass filter to get the input voltage in a sensible range for the comparator. Now with my signal scaled down to 2.5V, I could choose 2V after my low-pass filter to get the 20/80 split.
+        </p>
+
+        <p>Luckily, I could segment the whole section before the comparator after this because the comparator has (for my use) essentially infinite input impedance and zero output impedance (like an op-amp). For a couple hours, though my output was in the range of picoamps. When I went back to the datasheet, I learned the LM2903B is actually open-drain, which means you need a pull-up resistor.</p>
+
+        <p>Keeping up with this personal challenge, now that I had this nice PWM signal that I got through wrangling with a low-pass filter, now I needed to put this through <b>another</b> low-pass filter to inject into the base of my NPN. This is where the magic really happened</p>
+
+        <h2>Abracadabra</h2>
+        <p>I don't believe that humans have really solved any issues that have irreducible complexity. There's probably some model of the computer that just perfectly clicks and we can't ever make it because we wouldn't know which combination of buttons we need to press. Even the best AI won't solve these problems if we build them to just be smarter than us. The closest thing that we can solve that's around that level is interdependent systems (think the three-body problem.) That's what happened at this output</p>
+
+        <p>
+          It might seem like I can just connect the smoothed output to the input of the NPN, but that won't work. I need the biasing network to keep the voltage around the right level for a sufficient β to keep this in a sensible range for the biasing. So, I needed to connect them with a capacitor. Now here's where the complexity arises, I now have an unbuffered network with
+          <ul>
+            <li>A pull-up resistor</li>
+            <li>A low-pass filter</li>
+            <li>A connecting capacitor</li>
+            <li>A biasing network</li>
+          </ul>
+          which are all now affecting each other. The connecting capacitor in large-signal analysis is an open-circuit, but for the signals I'm pushing through, it started acting a bit like a short and interfered with the low-pass filter before it. I had to do a lot of fine tuning to keep my signal from plateauing at the top or the bottom after I added the connecting capacitor while keeping that capacitor of sufficient magnitude to give me a voltage swing sufficient to bring the current in my LED up and down to give the heartbeat effect. Also, I had to shrink my pull-up resistor to keep it from being too weak a pull-up and allowing the pull-up network to start actually interfering with my square-wave.
+        </p>
+        <p>After a lot of tinkering with all the values and managing to keep my RC time-constants sufficiently small to make sure they discharge and recharge fully in a clock cycle, I got a pretty nice-looking wave. My output goes between 20mA and roughly 8mA. While I would have preferred going all the way to 0, I think that this is really sufficient for the use case.</p>
+
+        <h2>Closing thoughts</h2>
+        <p>The biggest flaw in this design is the amount of current it has to consume. I could reduce the current into the comparator by making the resistors for my voltage divider really big, but if I tried to increase my pull-up resistors size, it allowed back-washing from the biasing network and not enough of a voltage swing at the output. As a result, this consumed more current than I would like. Because so much current is already being guzzled by my 14 LEDs, I need a second voltage regulator when I actually design the board.</p>
+        <p>In my next article, I'll actually go through my KiCAD PCB design and how I'm laying out the components.</p>
+
+        <p>
+          Each component of the article body is styled to have optimal line-height, margin, and typography. Below you'll find various blocks (headings, code snippets, lists, blockquotes, and callout boxes) that you can copy, paste, and edit as needed.
+        </p>
+
+        <!-- TEMPLATE NOTE: Headings (H2) -->
+        <h2>Section Heading (H2)</h2>
+        
+        <p>
+          When writing technical posts, structuring your content with subheadings is key. You can use standard <code>&lt;h2&gt;</code> and <code>&lt;h3&gt;</code> tags to structure your topics. For example, below is a code block showing how to read analog signals on an Arduino.
+        </p>
+
+        <!-- TEMPLATE NOTE: Code Blocks (pre + code) -->
+        <pre><code>// Example microcontroller diagnostics script
+int sensorPin = A0;    // select the input pin for the potentiometer
+int ledPin = 13;      // select the pin for the LED
+int sensorValue = 0;  // variable to store the value coming from the sensor
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  sensorValue = analogRead(sensorPin);
+  Serial.println(sensorValue);
+  digitalWrite(ledPin, HIGH);
+  delay(sensorValue);
+  digitalWrite(ledPin, LOW);
+  delay(sensorValue);
+}</code></pre>
+
+        <!-- TEMPLATE NOTE: Sub-headings (H3) -->
+        <h3>Subsection Heading (H3)</h3>
+        
+        <p>
+          You can also use inline code wrappers like <code>analogRead()</code> or <code>volatile uint8_t</code> inside paragraphs to denote variables, registers, functions, or filenames.
+        </p>
+
+        <!-- TEMPLATE NOTE: Info/Warning Callout Box -->
+        <div class="callout-box">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <p><strong>Pro Tip:</strong> When using analog inputs in high-noise environments, consider adding a 0.1µF ceramic decoupling capacitor close to the input pin to filter out high-frequency noise.</p>
+          </div>
+        </div>
+
+        <!-- TEMPLATE NOTE: Blockquotes -->
+        <blockquote>
+          <p>
+            "If it's not broken, mod it until it is."
+          </p>
+          <cite>&mdash; Anonymous Hardware Modder</cite>
+        </blockquote>
+
+        <h2>Formatting Options</h2>
+        
+        <p>
+          Here's how lists look inside the blog article layout:
+        </p>
+
+        <!-- TEMPLATE NOTE: Unordered Lists -->
+        <ul>
+          <li><strong>Multimeters:</strong> Essential for checking resistance, voltage, and continuity.</li>
+          <li><strong>Oscilloscopes:</strong> Crucial for analyzing high-speed digital signals and bus protocols.</li>
+          <li><strong>Logic Analyzers:</strong> Best for debugging digital serial lines like SPI, I2C, or UART.</li>
+        </ul>
+
+        <!-- TEMPLATE NOTE: Ordered Lists -->
+        <p>And for sequential instructions, here is an ordered list:</p>
+        <ol>
+          <li>De-solder the old electrolytic capacitors from the PCB.</li>
+          <li>Clean the solder pads using copper braid/wick and isopropyl alcohol.</li>
+          <li>Install high-quality modern replacements with identical voltage/capacitance ratings.</li>
+          <li>Verify proper polarity before soldering the new leads in place.</li>
+        </ol>
+
+        <!-- TEMPLATE NOTE: Figures (Images with Captions) -->
+        <figure>
+          <!-- Replace this with a real image path if needed -->
+          <img src="images/repairs_thumbnail.png" alt="Hardware Repair Tools">
+          <figcaption>Figure 1: Keep a clean workbench to ensure small surface-mount components aren't lost.</figcaption>
+        </figure>
+
+        <p>
+          This completes the default template sample. You can delete or duplicate any of these sections to write your actual articles!
+        </p>
+
+      </div>
+
+      <!-- Divider -->
+      <hr class="article-divider">
+
+      <!-- Author Bio Section -->
+      <div class="author-card">
+        <img src="images/profile.png" alt="Andrew Donnelly" class="author-card-img">
+        <div class="author-card-content">
+          <h3>About Andrew Donnelly</h3>
+          <p>
+            Andrew is a student at UC Davis double majoring in Electrical and Computer Engineering. He does freelance electronics repair in Sacramento and technical translation online.
+          </p>
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">
+        <div class="social-links">
+          <a href="#" target="_blank">Hackster.io</a>
+          <a href="#" target="_blank">LinkedIn</a>
+        </div>
+        <p>&copy; 2026 Andrew Donnelly</p>
+      </div>
+
+      <div class="footer-center">
+        <img src="images/black_mage.png" alt="Black-Mage" id="black-mage" class="footer-photo">
+      </div>
+
+      <div class="footer-right">
+        <span id="footer-quote"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="quotes.js"></script>
+</body>
+
+</html>
