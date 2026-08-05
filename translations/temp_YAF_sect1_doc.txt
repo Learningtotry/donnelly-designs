@@ -1,3 +1,9 @@
+---
+title: "'3 Reasons to be Proud to be an American': Reason 1 (Japanese edition)"
+date: July 26, 2026
+excerpt: "I decided that, for the sheer fun of it, I would translate an old YAF pamphlet about why you should be proud of being an American into Japanese. It helps me learn about political terms and the pamphlet itself has a lot of common expressions which helps me familiarize myself with sort of casual English->Japanese translation. This is the first part and is unbelievably rough right now, but I'm putting it out to force myself to work on it, anyway."
+image: images/amerikaze.png
+---
 アメリカは独特な国です。
 
 他の国はアメリカのような世界開花に特異貢献しない

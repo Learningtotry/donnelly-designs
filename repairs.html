@@ -31,6 +31,13 @@
 
 
 
+
+
+
+
+
+
+
   <!-- Main Content -->
   <main>
     <div class="page-header">
@@ -40,45 +47,41 @@
 
     <!-- Article Roll (Legends of Localization style) -->
     <div class="article-roll">
-
-      <!-- Repair 1 -->
+      <!-- REPAIRS_START -->
+      <!-- Tech Repairs: Recapping a Game Gear VA2 main board + audio board + power board -->
       <article class="article-card">
         <div class="article-image-container">
-          <a href="#">
-            <img src="images/repairs_thumbnail.png" alt="Repairing PC broken USB" class="article-image">
+          <a href="repairs/recapping_game_gear.html">
+            <img src="images/repairs_thumbnail.png" alt="Recapping a Game Gear VA2 main board + audio board + power board" class="article-image">
           </a>
         </div>
         <div class="article-text">
           <h2 class="article-title">
-            <a href="#">Fixing a broken USB port on my PC</a>
+            <a href="repairs/recapping_game_gear.html">Recapping a Game Gear VA2 main board + audio board + power board</a>
           </h2>
           <p class="article-excerpt">
-            One day, my USB just stopped working for no reason and I was thinking "How, there isn't even any software?"
-            The one right next to it worked fine, so I had to open it up and I found some surprisingly bad design 
-            of the casing itself which should have been obvious to the designer. Anyway this is how I fixed it...
+            I recently got a Game Gear (model VA2) off of Amazon for cheap that needed a recapping. I thought it would be a fun project and help me hone my soldering skills so I got to work.
           </p>
         </div>
       </article>
 
-    <article class="article-card">
+      <!-- Tech Repairs: Game Boy Advance SP Mod -->
+      <article class="article-card">
         <div class="article-image-container">
-          <a href="#">
-            <img src="images/repairs_thumbnail.png" alt="Recapping a Game Gear VA2" class="article-image">
+          <a href="repairs/gameboy_advance_sp_mod.html">
+            <img src="images/repairs_thumbnail.png" alt="Game Boy Advance SP Mod" class="article-image">
           </a>
         </div>
         <div class="article-text">
           <h2 class="article-title">
-            <a href="#">Recapping a Game Gear VA2 main board + audio board + power board </a>
+            <a href="repairs/gameboy_advance_sp_mod.html">Game Boy Advance SP Mod</a>
           </h2>
           <p class="article-excerpt">
-            I recently got a Game Gear (model VA2) off of Amazon for cheap that needed a recapping, I thought it
-            would be a fun project and help me hone my soldering skills so I got to work. This is how I did it and 
-            what ended up happening to yield my taped up mess.
+            Installing an IPS backlit screen and custom transparent shell replacement on a retro console. This upgrade makes a world of difference for gameplay in low-light conditions.
           </p>
         </div>
       </article>
-
-
+      <!-- REPAIRS_END -->
     </div>
 
     <!-- View More Button Container -->
@@ -92,6 +95,7 @@
   <div class="footer-content">
     <div class="footer-left">
       <div class="social-links">
+        <a href="https://www.linkedin.com/in/andrew-donnelly-9766b5283/" target="_blank">LinkedIn</a>
         <a href="https://hackaday.io/projects/hacker/1837318" target="_blank">Hackaday</a>
       </div>
       <p>&copy; 2026 Andrew Donnelly</p>
@@ -113,12 +117,22 @@
 
 
 
+
+
+
+
+
+
+
   <!-- View More Script -->
   <script>
     const viewMoreBtn = document.getElementById('view-more-btn');
     const hiddenArticles = document.querySelectorAll('.article-card.hidden');
 
     if (viewMoreBtn) {
+      if (hiddenArticles.length === 0) {
+        viewMoreBtn.style.display = 'none';
+      }
       viewMoreBtn.addEventListener('click', () => {
         hiddenArticles.forEach(article => {
           article.classList.remove('hidden');

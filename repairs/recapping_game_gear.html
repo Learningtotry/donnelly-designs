@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recapping a Game Gear - My Portfolio</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../blog.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="../index.html#home" class="nav-home">Home</a></li>
+      <li><a href="../projects.html" class="nav-projects">Projects</a></li>
+      <li><a href="../translations.html" class="nav-translations">Translations</a></li>
+      <li><a href="../blog.html" class="nav-blog">Blog</a></li>
+      <li><a href="../repairs.html" class="nav-repairs active">Tech Repairs</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+  <!-- Main Content -->
+  <main>
+    <article class="article-container">
+      
+      <!-- Back Link -->
+      <div class="back-link">
+        <a href="../repairs.html">&larr; Back to Tech Repairs</a>
+      </div>
+
+      <!-- Article Header -->
+      <div class="article-header">
+        <div class="article-meta">
+          <span class="article-date">July 28, 2026</span>
+        </div>
+        
+        <h1 class="article-detail-title">Recapping a Game Gear VA2 main board + audio board + power board</h1>
+        
+        <div class="article-author-info">
+          <img src="../images/profile.png" alt="Andrew Donnelly" class="article-author-img">
+          <span class="article-author-name">Andrew Donnelly</span>
+        </div>
+      </div>
+
+      <!-- Featured Image -->
+      <div class="article-featured-image">
+        <img src="../images/repairs_thumbnail.png" alt="Recapping a Game Gear VA2">
+      </div>
+
+      <!-- Article Body -->
+      <div class="article-body">
+        <p>
+          I recently got a Game Gear (model VA2) off of eBay that I wanted to recap. Here's what I did to get it working!
+        </p>
+
+        <img src="../images/gg_recap/gg_1.jpg" alt="A Sega Game Gear">
+        <img src="../images/gg_recap/gg_2.jpg" alt="A Sega Game Gear">
+        <img src="../images/gg_recap/gg_3.jpg" alt="A Sega Game Gear">
+        <p>
+          Sega Game Gear systems from the 1990s are notorious for using low-quality electrolytic capacitors that leak over time, causing issues ranging from dim screens and lack of audio to complete failure to power on. Replacing these caps with high-quality ceramic or new electrolytic ones resolves these issues completely.
+        </p>
+
+        <h2>Parts</h2>
+
+        <p>
+          I bought the parts from digiKey and am including some links below. These might be stale, but if they still work, you can use them. I went off of <a href="https://retrosix.wiki/wiki/capacitor-replacement-game-gear">retrosix's amazing guide</a> which I cannot more highly recommend, high quality website! 
+        </p>
+
+        
+        Power board
+        <ul>
+          <li>C13 - 820uF 35V</li>
+          <li>C5 - 22uF 35V</li>
+          <li>C11 - 100uF 35V</li>
+        </ul>
+        Sound board
+        <ul>
+          <li>C12, C1, C2, C3, C5 - 100uF 5V</li>
+        </ul>
+
+        VA2 Board
+        <ul>
+          <li>C68, C49, C47, C49, C1 - 100uF 5V</li>
+          <li>C55, C54, - 1uF 5V</li>
+          <li>C4, C45, C42, C15, C11 - 10uF 5V</li>
+        </ul>
+
+        <h2>Breakdown of lingo</h2>
+        <p>
+          I know that soldering is often filled with some really obscure lingo so let me break down a few things that confused me when I was researching.
+          First <strong>uF means micro-Farad</strong>. Farads are how much of a capacitor a capacitor really is. What a capacitor does is store charge (like charging a battery). When you put a capacitor in a circuit, it will end up storing charge across it, building up voltage until it has enough charge that it can't be filled anymore. We use uF because the 'u' looks like the Greek letter mu which is a prefix for micro (1/1,000,000 a million and mu is pronounced m in greek, get it? m and million?)
+        </p>
+
+        <p>
+          Voltage levels are another thing that you need to understand. Basically, your capacitor will blow up (actually it won't, it will just not work, but we like saying blow up) if the voltage across it is higher than it is made for. The voltage used for every component is less than or equal to 5V except on the power board because the power board actually changes the voltage from a higher level to the 5V for the rest of the board. 
+        </p>
+
+        <p>
+          Sizes are another thing which almost no guide even mentions. Basically there are two types of capacitors you can use
+          <ol>
+            <li>SMD capacitors</li>
+            <li>Through-hole capacitors</li>
+          </ol>
+          Through-hole capacitors look like a can of soda with two little legs. These are what are on the power board when you open it up. SMDs are "surface mound devices" which means they don't stick through the board, they're just on one surface. These are what you usually use for GG repairs. SMD capacitors are sized based on something called 'mils'. A mil is literally a milli-inch (1/1000th of an inch.) Yes, we stole it from metric. Capacitors are usually sized based on two pairs of numbers which we smush into one. For example
+          <ul>
+            <li>0402 - 4/1000 inches (4 mils) long by 2/1000 inches (2 mils) wide</li>
+            <li>1005 - 10/1000 inches (10 mils) long by 5/1000 inches (5 mils) wide</li>
+          </ul>
+          Usually, SMDs are smaller but also don't have as much capacitance. They're used a lot because they're easy for machines to put on boards and they fit well in factories.
+        </p>
+        <strong>You'll need actual can capacitors (through-hole capacitors) as opposed to the block-looking SMDs that are rated for at or above 35V for the power board. If you don't, you'll blow it.</strong>
+      </div>
+
+      <hr class="article-divider">
+
+      <!-- Author Bio Section -->
+      <div class="author-card">
+  <img src="../images/profile.png" alt="Andrew Donnelly" class="author-card-img">
+  <div class="author-card-content">
+    <h3>About Andrew Donnelly</h3>
+    <p>
+      Andrew is a student at UC Davis double majoring in Electrical and Computer Engineering. He does freelance electronics repair in Sacramento and technical translation online.
+    </p>
+  </div>
+</div>
+
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+  <div class="footer-content">
+    <div class="footer-left">
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/andrew-donnelly-9766b5283/" target="_blank">LinkedIn</a>
+        <a href="https://hackaday.io/projects/hacker/1837318" target="_blank">Hackaday</a>
+      </div>
+      <p>&copy; 2026 Andrew Donnelly</p>
+    </div>
+
+    <div class="footer-center">
+      <img src="../images/black_mage.png" alt="Black-Mage" id="black-mage" class="footer-photo">
+    </div>
+
+    <div class="footer-right">
+      <span id="footer-quote"></span>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="../quotes.js" data-root="../"></script>
+</body>
+
+</html>

@@ -6,6 +6,7 @@ const PROJECTS_HTML_PATH = path.join(__dirname, 'projects.html');
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
 const HEADER_TEMPLATE_PATH = path.join(TEMPLATES_DIR, 'header.html');
 const FOOTER_TEMPLATE_PATH = path.join(TEMPLATES_DIR, 'footer.html');
+const BIO_TEMPLATE_PATH = path.join(TEMPLATES_DIR, 'bio.html');
 const DEFAULT_IMAGE = 'images/project_thumbnail.png';
 
 // Fallback formatting for titles based on filename
@@ -29,33 +30,64 @@ function cleanHtml(html) {
     .trim();
 }
 
-function parseProjectFile(filename) {
-  const filePath = path.join(PROJECTS_DIR, filename);
-  const content = fs.readFileSync(filePath, 'utf8');
-
-  // 1. Extract Title
-  let title = '';
-  const bodyH1Match = content.match(/<div class="article-body">[\s\S]*?<h1>([\s\S]*?)<\/h1>/);
-  if (bodyH1Match) {
-    title = cleanHtml(bodyH1Match[1]);
-  }
-
-  if (!title) {
-    const detailTitleMatch = content.match(/<h1 class="article-detail-title">([\s\S]*?)<\/h1>/);
-    if (detailTitleMatch) {
-      const matchText = cleanHtml(detailTitleMatch[1]);
-      if (!matchText.toLowerCase().includes('example article title')) {
-        title = matchText;
+function parseFrontMatter(content) {
+  const result = { content: content, metadata: {} };
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+  if (match) {
+    const yamlSection = match[1];
+    result.content = match[2];
+    const lines = yamlSection.split('\n');
+    for (const line of lines) {
+      const parts = line.split(':');
+      if (parts.length >= 2) {
+        const key = parts[0].trim().toLowerCase();
+        const value = parts.slice(1).join(':').trim();
+        // Strip quotes if any
+        result.metadata[key] = value.replace(/^['"]|['"]$/g, '');
       }
     }
   }
+  return result;
+}
 
-  if (!title) {
-    const headTitleMatch = content.match(/<title>([\s\S]*?)<\/title>/);
-    if (headTitleMatch) {
-      const matchText = cleanHtml(headTitleMatch[1]);
-      if (!matchText.toLowerCase().includes('article title')) {
-        title = matchText.replace(/\s*-\s*My Blog/i, '');
+function parseArticleFile(dirPath, filename) {
+  const filePath = path.join(dirPath, filename);
+  const content = fs.readFileSync(filePath, 'utf8');
+
+  let metadata = {};
+  let bodyContent = content;
+
+  if (content.startsWith('---')) {
+    const parsed = parseFrontMatter(content);
+    metadata = parsed.metadata;
+    bodyContent = parsed.content;
+  }
+
+  // 1. Extract Title
+  let title = metadata.title || '';
+  if (!title && filename.endsWith('.html')) {
+    const bodyH1Match = bodyContent.match(/<div class="article-body">[\s\S]*?<h1>([\s\S]*?)<\/h1>/);
+    if (bodyH1Match) {
+      title = cleanHtml(bodyH1Match[1]);
+    }
+
+    if (!title) {
+      const detailTitleMatch = bodyContent.match(/<h1 class="article-detail-title">([\s\S]*?)<\/h1>/);
+      if (detailTitleMatch) {
+        const matchText = cleanHtml(detailTitleMatch[1]);
+        if (!matchText.toLowerCase().includes('example article title')) {
+          title = matchText;
+        }
+      }
+    }
+
+    if (!title) {
+      const headTitleMatch = bodyContent.match(/<title>([\s\S]*?)<\/title>/);
+      if (headTitleMatch) {
+        const matchText = cleanHtml(headTitleMatch[1]);
+        if (!matchText.toLowerCase().includes('article title')) {
+          title = matchText.replace(/\s*-\s*My Blog/i, '').replace(/\s*-\s*My Portfolio/i, '');
+        }
       }
     }
   }
@@ -64,37 +96,66 @@ function parseProjectFile(filename) {
     title = formatFilenameToTitle(filename);
   }
 
-  // 2. Extract Featured Image
-  let image = DEFAULT_IMAGE;
-  const imageMatch = content.match(/class="article-featured-image"[\s\S]*?<img[^>]+src="([^"]+)"/);
-  if (imageMatch) {
-    let src = imageMatch[1];
-    if (src.startsWith('../')) {
-      src = src.substring(3);
+  // 2. Extract Date
+  let dateStr = metadata.date || '';
+  if (!dateStr && filename.endsWith('.html')) {
+    const dateMatch = bodyContent.match(/<span class="article-date">([\s\S]*?)<\/span>/);
+    if (dateMatch) {
+      dateStr = cleanHtml(dateMatch[1]);
     }
-    image = src;
+  }
+  let date = null;
+  if (dateStr) {
+    date = new Date(dateStr);
+  }
+  if (!date || isNaN(date.getTime())) {
+    const stat = fs.statSync(filePath);
+    date = stat.mtime || stat.birthtime;
   }
 
-  // 3. Extract Description / Excerpt
-  let excerpt = '';
-  const metaDescMatch = content.match(/<meta[^>]+name="description"[^>]+content="([^"]+)"/i) ||
-                        content.match(/<meta[^>]+content="([^"]+)"[^>]+name="description"/i);
-  if (metaDescMatch) {
-    excerpt = cleanHtml(metaDescMatch[1]);
+  // 3. Extract Featured Image
+  let image = metadata.image || DEFAULT_IMAGE;
+  if (image === DEFAULT_IMAGE && filename.endsWith('.html')) {
+    const imageMatch = bodyContent.match(/class="article-featured-image"[\s\S]*?<img[^>]+src="([^"]+)"/) ||
+                       bodyContent.match(/<div class="article-featured-image"[\s\S]*?<img[^>]+src="([^"]+)"/);
+    if (imageMatch) {
+      let src = imageMatch[1];
+      if (src.startsWith('../')) {
+        src = src.substring(3);
+      }
+      image = src;
+    }
   }
 
-  if (!excerpt) {
-    const bodyParagraphsMatch = content.match(/<div class="article-body">([\s\S]*?)<\/div>/);
-    if (bodyParagraphsMatch) {
-      const bodyContent = bodyParagraphsMatch[1];
-      const pMatches = bodyContent.matchAll(/<p>([\s\S]*?)<\/p>/g);
-      for (const pMatch of pMatches) {
-        const text = cleanHtml(pMatch[1]);
-        if (text.length > 10) {
-          excerpt = text;
-          break;
+  // 4. Extract Description / Excerpt
+  let excerpt = metadata.excerpt || '';
+  if (!excerpt && filename.endsWith('.html')) {
+    const metaDescMatch = bodyContent.match(/<meta[^>]+name="description"[^>]+content="([^"]+)"/i) ||
+                          bodyContent.match(/<meta[^>]+content="([^"]+)"[^>]+name="description"/i);
+    if (metaDescMatch) {
+      excerpt = cleanHtml(metaDescMatch[1]);
+    }
+
+    if (!excerpt) {
+      const bodyParagraphsMatch = bodyContent.match(/<div class="article-body">([\s\S]*?)<\/div>/);
+      if (bodyParagraphsMatch) {
+        const bodyText = bodyParagraphsMatch[1];
+        const pMatches = bodyText.matchAll(/<p>([\s\S]*?)<\/p>/g);
+        for (const pMatch of pMatches) {
+          const text = cleanHtml(pMatch[1]);
+          if (text.length > 10) {
+            excerpt = text;
+            break;
+          }
         }
       }
+    }
+  }
+
+  if (!excerpt && !filename.endsWith('.html')) {
+    const paragraphs = bodyContent.split(/\r?\n\r?\n/).map(p => cleanHtml(p)).filter(p => p.length > 10);
+    if (paragraphs.length > 0) {
+      excerpt = paragraphs[0];
     }
   }
 
@@ -102,85 +163,148 @@ function parseProjectFile(filename) {
   if (excerpt.length > maxChars) {
     excerpt = excerpt.substring(0, maxChars).trim() + '...';
   } else if (!excerpt) {
-    excerpt = 'No project description available.';
+    excerpt = `No ${path.basename(dirPath)} description available.`;
   }
 
   return {
     filename,
     title,
     image,
-    excerpt
+    excerpt,
+    date
   };
 }
 
-function generateProjectCards() {
-  if (!fs.existsSync(PROJECTS_DIR)) {
-    console.error(`Error: projects directory not found at ${PROJECTS_DIR}`);
+const CATEGORIES = {
+  projects: {
+    dir: path.join(__dirname, 'projects'),
+    htmlPath: path.join(__dirname, 'projects.html'),
+    startComment: '<!-- PROJECTS_START -->',
+    endComment: '<!-- PROJECTS_END -->',
+    name: 'Projects',
+    linkPrefix: 'projects/'
+  },
+  translations: {
+    dir: path.join(__dirname, 'translations'),
+    htmlPath: path.join(__dirname, 'translations.html'),
+    startComment: '<!-- TRANSLATIONS_START -->',
+    endComment: '<!-- TRANSLATIONS_END -->',
+    name: 'Translations',
+    linkPrefix: 'translations/'
+  },
+  blog: {
+    dir: path.join(__dirname, 'blog'),
+    htmlPath: path.join(__dirname, 'blog.html'),
+    startComment: '<!-- BLOG_START -->',
+    endComment: '<!-- BLOG_END -->',
+    name: 'Blog',
+    linkPrefix: 'blog/'
+  },
+  repairs: {
+    dir: path.join(__dirname, 'repairs'),
+    htmlPath: path.join(__dirname, 'repairs.html'),
+    startComment: '<!-- REPAIRS_START -->',
+    endComment: '<!-- REPAIRS_END -->',
+    name: 'Tech Repairs',
+    linkPrefix: 'repairs/'
+  }
+};
+
+function generateCards() {
+  const INDEX_HTML_PATH = path.join(__dirname, 'index.html');
+  if (!fs.existsSync(INDEX_HTML_PATH)) {
+    console.error(`Error: index.html not found at ${INDEX_HTML_PATH}`);
     return;
   }
+  let indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
 
-  const files = fs.readdirSync(PROJECTS_DIR);
-  const projectFiles = files.filter(file => {
-    const fullPath = path.join(PROJECTS_DIR, file);
-    const stat = fs.statSync(fullPath);
-    return stat.isFile() && file !== 'README.md' && !file.startsWith('.');
-  });
-
-  console.log(`[Cards] Found ${projectFiles.length} project file(s).`);
-
-  const projects = projectFiles.map(file => {
-    try {
-      return parseProjectFile(file);
-    } catch (err) {
-      console.error(`Error parsing project ${file}:`, err);
-      return null;
+  for (const [key, cat] of Object.entries(CATEGORIES)) {
+    if (!fs.existsSync(cat.dir)) {
+      fs.mkdirSync(cat.dir, { recursive: true });
     }
-  }).filter(Boolean);
 
-  const cardsHtml = projects.map((proj, idx) => {
-    const isHidden = idx >= 3;
-    const cardClass = isHidden ? 'article-card hidden' : 'article-card';
-    return `      <!-- Project: ${proj.title} -->
+    const files = fs.readdirSync(cat.dir).filter(file => {
+      const fullPath = path.join(cat.dir, file);
+      const stat = fs.statSync(fullPath);
+      return stat.isFile() && file !== 'README.md' && !file.startsWith('.');
+    });
+
+    console.log(`[Cards] Found ${files.length} file(s) for ${cat.name}.`);
+
+    const articles = files.map(file => {
+      try {
+        return parseArticleFile(cat.dir, file);
+      } catch (err) {
+        console.error(`Error parsing ${cat.name} file ${file}:`, err);
+        return null;
+      }
+    }).filter(Boolean);
+
+    // Sort chronologically (newest first)
+    articles.sort((a, b) => b.date - a.date);
+
+    // Generate section page cards
+    const sectionCardsHtml = articles.map((art, idx) => {
+      const isHidden = idx >= 3;
+      const cardClass = isHidden ? 'article-card hidden' : 'article-card';
+      return `      <!-- ${cat.name}: ${art.title} -->
       <article class="${cardClass}">
         <div class="article-image-container">
-          <a href="projects/${proj.filename}">
-            <img src="${proj.image}" alt="${proj.title}" class="article-image">
+          <a href="${cat.linkPrefix}${art.filename}">
+            <img src="${art.image}" alt="${art.title}" class="article-image">
           </a>
         </div>
         <div class="article-text">
           <h2 class="article-title">
-            <a href="projects/${proj.filename}">${proj.title}</a>
+            <a href="${cat.linkPrefix}${art.filename}">${art.title}</a>
           </h2>
           <p class="article-excerpt">
-            ${proj.excerpt}
+            ${art.excerpt}
           </p>
         </div>
       </article>`;
-  }).join('\n\n');
+    }).join('\n\n');
 
-  if (!fs.existsSync(PROJECTS_HTML_PATH)) {
-    console.error(`Error: projects.html not found at ${PROJECTS_HTML_PATH}`);
-    return;
+    if (fs.existsSync(cat.htmlPath)) {
+      let pageHtml = fs.readFileSync(cat.htmlPath, 'utf8');
+      const startIdx = pageHtml.indexOf(cat.startComment);
+      const endIdx = pageHtml.indexOf(cat.endComment);
+
+      if (startIdx !== -1 && endIdx !== -1) {
+        const updatedPageHtml = 
+          pageHtml.substring(0, startIdx + cat.startComment.length) + 
+          '\n' + sectionCardsHtml + '\n      ' + 
+          pageHtml.substring(endIdx);
+        fs.writeFileSync(cat.htmlPath, updatedPageHtml, 'utf8');
+        console.log(`[Cards] Updated ${path.basename(cat.htmlPath)} with cards!`);
+      } else {
+        console.warn(`[Cards] Warning: Placeholders not found in ${path.basename(cat.htmlPath)}`);
+      }
+    }
+
+    // Generate homepage cards (up to 2 latest items)
+    const homeArticles = articles.slice(0, 2);
+    const homeCardsHtml = homeArticles.map(art => {
+      return `        <article class="card clickable-card" onclick="window.location.href='${cat.linkPrefix}${art.filename}'">
+          <h3>${art.title}</h3>
+          <p>${art.excerpt}</p>
+        </article>`;
+    }).join('\n');
+
+    const homeStartIdx = indexHtml.indexOf(cat.startComment);
+    const homeEndIdx = indexHtml.indexOf(cat.endComment);
+    if (homeStartIdx !== -1 && homeEndIdx !== -1) {
+      indexHtml = 
+        indexHtml.substring(0, homeStartIdx + cat.startComment.length) + 
+        '\n' + homeCardsHtml + '\n        ' + 
+        indexHtml.substring(homeEndIdx);
+    } else {
+      console.warn(`[Cards] Warning: Placeholders not found in index.html for category ${cat.name}`);
+    }
   }
 
-  let projectsHtml = fs.readFileSync(PROJECTS_HTML_PATH, 'utf8');
-  const startComment = '<!-- PROJECTS_START -->';
-  const endComment = '<!-- PROJECTS_END -->';
-  const startIndex = projectsHtml.indexOf(startComment);
-  const endIndex = projectsHtml.indexOf(endComment);
-
-  if (startIndex === -1 || endIndex === -1) {
-    console.error(`Error: Could not find placeholders ${startComment} and/or ${endComment} in projects.html`);
-    return;
-  }
-
-  const updatedHtml = 
-    projectsHtml.substring(0, startIndex + startComment.length) + 
-    '\n' + cardsHtml + '\n      ' + 
-    projectsHtml.substring(endIndex);
-
-  fs.writeFileSync(PROJECTS_HTML_PATH, updatedHtml, 'utf8');
-  console.log('[Cards] Successfully updated projects.html with dynamic cards!');
+  fs.writeFileSync(INDEX_HTML_PATH, indexHtml, 'utf8');
+  console.log('[Cards] Successfully updated index.html with homepage preview cards!');
 }
 
 function getHtmlFiles(dir, filesList = []) {
@@ -243,17 +367,18 @@ function build() {
   // Step 0: Sync quotes from quotes.txt to quotes.js
   syncQuotes();
 
-  // Step 1: Regenerate projects.html cards first
-  generateProjectCards();
+  // Step 1: Regenerate cards for all categories
+  generateCards();
 
-  // Step 2: Read canonical header and footer templates
-  if (!fs.existsSync(HEADER_TEMPLATE_PATH) || !fs.existsSync(FOOTER_TEMPLATE_PATH)) {
-    console.error('Error: Canonical header/footer templates not found inside templates/');
+  // Step 2: Read canonical header, footer, and bio templates
+  if (!fs.existsSync(HEADER_TEMPLATE_PATH) || !fs.existsSync(FOOTER_TEMPLATE_PATH) || !fs.existsSync(BIO_TEMPLATE_PATH)) {
+    console.error('Error: Canonical header/footer/bio templates not found inside templates/');
     process.exit(1);
   }
 
   const canonicalHeader = fs.readFileSync(HEADER_TEMPLATE_PATH, 'utf8');
   const canonicalFooter = fs.readFileSync(FOOTER_TEMPLATE_PATH, 'utf8');
+  const canonicalBio = fs.readFileSync(BIO_TEMPLATE_PATH, 'utf8');
 
   // Step 3: Find all HTML files to process
   const htmlFiles = getHtmlFiles(__dirname);
@@ -303,6 +428,13 @@ function build() {
     const footerRegex = /<footer>[\s\S]*?<\/footer>/i;
     if (footerRegex.test(content)) {
       content = content.replace(footerRegex, footerHtml);
+    }
+
+    // Replace bio block
+    let bioHtml = canonicalBio.replace(/\{\{PATH_PREFIX\}\}/g, pathPrefix);
+    const bioRegex = /<div class="author-card">[\s\S]*?<\/div>\s*<\/div>/i;
+    if (bioRegex.test(content)) {
+      content = content.replace(bioRegex, bioHtml);
     }
 
     // Fix stylesheet paths for subdirectory files (e.g. href="style.css" -> href="../style.css")

@@ -31,6 +31,13 @@
 
 
 
+
+
+
+
+
+
+
   <!-- Main Content -->
   <main>
     <div class="page-header">
@@ -39,24 +46,24 @@
     </div>
 
     <div class="article-roll">
-
-      <!-- Article 1 -->
+      <!-- BLOG_START -->
+      <!-- Blog: Contentment when you can skate past it -->
       <article class="article-card">
         <div class="article-image-container">
           <a href="blog/contentment.html">
-            <img src="images/deicing_aircraft.png" alt="Contentment and Ambition" class="article-image">
+            <img src="images/deicing_aircraft.png" alt="Contentment when you can skate past it" class="article-image">
           </a>
         </div>
         <div class="article-text">
           <h2 class="article-title">
-            <a href="blog/contentment.html">Contentment and ambition</a>
+            <a href="blog/contentment.html">Contentment when you can skate past it</a>
           </h2>
           <p class="article-excerpt">
-            I think that one of the most important shortcomings that I find in myself and ocassionally others is an inability to say enough. What is really enough.
+            Welcome to your new article template! This HTML and CSS structure is custom-built to provide a premium, highly readable editorial layout. Whether you're discussing microcontroller architecture, legacy character encodings, or general engineering princ...
           </p>
         </div>
       </article>
-
+      <!-- BLOG_END -->
     </div>
 
     <!-- View More Button Container -->
@@ -70,6 +77,7 @@
   <div class="footer-content">
     <div class="footer-left">
       <div class="social-links">
+        <a href="https://www.linkedin.com/in/andrew-donnelly-9766b5283/" target="_blank">LinkedIn</a>
         <a href="https://hackaday.io/projects/hacker/1837318" target="_blank">Hackaday</a>
       </div>
       <p>&copy; 2026 Andrew Donnelly</p>
@@ -91,12 +99,22 @@
 
 
 
+
+
+
+
+
+
+
   <!-- View More Script -->
   <script>
     const viewMoreBtn = document.getElementById('view-more-btn');
     const hiddenArticles = document.querySelectorAll('.article-card.hidden');
 
     if (viewMoreBtn) {
+      if (hiddenArticles.length === 0) {
+        viewMoreBtn.style.display = 'none';
+      }
       viewMoreBtn.addEventListener('click', () => {
         hiddenArticles.forEach(article => {
           article.classList.remove('hidden');

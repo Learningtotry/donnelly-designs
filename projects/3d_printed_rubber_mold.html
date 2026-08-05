@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- TEMPLATE NOTE: Replace the title below with your article's title -->
+  <title>Article Title - My Blog</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../blog.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="../index.html#home" class="nav-home">Home</a></li>
+      <li><a href="../projects.html" class="nav-projects active">Projects</a></li>
+      <li><a href="../translations.html" class="nav-translations">Translations</a></li>
+      <li><a href="../blog.html" class="nav-blog">Blog</a></li>
+      <li><a href="../repairs.html" class="nav-repairs">Tech Repairs</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+
+
+
+
+
+
+  <!-- Main Content -->
+  <main>
+    <article class="article-container">
+      
+      <!-- Back Link -->
+      <div class="back-link">
+        <a href="../blog.html">&larr; Back to Blog</a>
+      </div>
+
+      <!-- Article Header -->
+      <div class="article-header">
+        <div class="article-meta">
+          <!-- TEMPLATE NOTE: Update the category pill, date, and reading time -->
+          <span class="article-date">August 1, 2026</span>
+        </div>
+        
+        <!-- TEMPLATE NOTE: Update the main H1 title -->
+        <h1 class="article-detail-title">Creating a 3d printed mold for silicone</h1>
+        
+        <div class="article-author-info">
+          <img src="../images/profile.png" alt="Andrew Donnelly" class="article-author-img">
+          <span class="article-author-name">Andrew Donnelly</span>
+        </div>
+      </div>
+
+      <!-- Featured Image -->
+      <div class="article-featured-image">
+        <img src="../images/silicone_mold/silicone_mold_0.png" alt="Featured article cover image">
+      </div>
+
+      <!-- Article Body -->
+      <div class="article-body">
+        
+        <p>
+          Hello all, in this article I'm going to show you how to make a 3d printed mold for making something in silicone. Silicone is a kind of rubbery material that you can use for materials that need to be sealed tightly. In my case, I needed to seal the drain of a sink, so I needed a small cylinder or torus.
+        </p>
+
+        <p>
+          I've been trying to transition to using FreeCAD for my 3d adventures because it is more compact, can run on Linux, and I don't need to worry about transitioning after graduation or paying hundreds or thousands of dollars per annum to use the software. I haven't used it long enough to say deifnitively its limitations, but it has a built-in Python scripting console, so you can probably build things as complex as Fusion 360, but the UI is definitely not as intuitive. On the plus side, this has never crashed for me whereas Fusion can just bomb your GPU if it isn't good enough.
+        </p>
+
+        <p>Enough rambling, on with the project!</p>
+        <img src="../images/silicone_mold/silicone_mold_1.png">
+
+        <p>Step zero is measuring the piece you want to make. I measure that I wanted to make a rubber cylinder about 3.00mm tall with an inner diameter of 23.3mm and an outer diameter of 36.5mm. You want to start with a cube in the part workspace. Make this cube about 2mm deeper than you need so the mold has some support on the bottom. Also make it wider (for me, I made the XY view about 40mmx40mm.) Next, just create your target shape which was a hollow cylinder (aka a tube) in FreeCAD. After this So the above is what I've made.</p>
+
+        <img src="../images/silicone_mold/silicone_mold_2.png">
+        <p>
+          Once you have these created, you can use cut to make the shape. The only thing you have to do after this is select the inner edges and bevel them a bit to make it so that its easier for the mold to slip out when it is dried, otherwise it will get stuck.
+        </p>
+        <img src="../images/silicone_mold/silicone_mold_3.png">
+
+        <hr class="article-divider">
+
+      <!-- Author Bio Section -->
+      <div class="author-card">
+  <img src="../images/profile.png" alt="Andrew Donnelly" class="author-card-img">
+  <div class="author-card-content">
+    <h3>About Andrew Donnelly</h3>
+    <p>
+      Andrew is a student at UC Davis double majoring in Electrical and Computer Engineering. He does freelance electronics repair in Sacramento and technical translation online.
+    </p>
+  </div>
+</div>
+
+
+
+
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+  <div class="footer-content">
+    <div class="footer-left">
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/andrew-donnelly-9766b5283/" target="_blank">LinkedIn</a>
+        <a href="https://hackaday.io/projects/hacker/1837318" target="_blank">Hackaday</a>
+      </div>
+      <p>&copy; 2026 Andrew Donnelly</p>
+    </div>
+
+    <div class="footer-center">
+      <img src="../images/black_mage.png" alt="Black-Mage" id="black-mage" class="footer-photo">
+    </div>
+
+    <div class="footer-right">
+      <span id="footer-quote"></span>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+  <script src="../quotes.js" data-root="../"></script>
+</body>
+
+</html>

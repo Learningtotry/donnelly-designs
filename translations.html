@@ -31,6 +31,13 @@
 
 
 
+
+
+
+
+
+
+
   <!-- Main Content -->
   <main>
     <div class="page-header">
@@ -40,12 +47,12 @@
 
     <!-- Article Roll (Legends of Localization style) -->
     <div class="article-roll">
-
-      <!-- Article 1 -->
+      <!-- TRANSLATIONS_START -->
+      <!-- Translations: '3 Reasons to be Proud to be an American': Reason 1 (Japanese edition) -->
       <article class="article-card">
         <div class="article-image-container">
           <a href="translations/temp_YAF_sect1_doc.txt">
-            <img src="images/amerikaze.png" alt="Image of American flag on katana" class="article-image">
+            <img src="images/amerikaze.png" alt="'3 Reasons to be Proud to be an American': Reason 1 (Japanese edition)" class="article-image">
           </a>
         </div>
         <div class="article-text">
@@ -53,16 +60,11 @@
             <a href="translations/temp_YAF_sect1_doc.txt">'3 Reasons to be Proud to be an American': Reason 1 (Japanese edition)</a>
           </h2>
           <p class="article-excerpt">
-            I decided that, for the sheer fun of it, I would translate an old YAF pamphlet about why
-            you should be proud of being an American into Japanese. It helps me learn about political terms
-            and the pamphlet itself has a lot of common expressions which helps me familiarize myself with
-            sort of casual English->Japanese translation. This is the first part and is unbelievably rough
-            right now, but I'm putting it out to force myself to work on it, anyway. I'll take it down if YAF
-            has a problem with it, but I already have permission from the Dr. Folsom to translate it.
+            I decided that, for the sheer fun of it, I would translate an old YAF pamphlet about why you should be proud of being an American into Japanese. It helps me learn about political terms and the pamphlet itself has a lot of common expressions which hel...
           </p>
         </div>
       </article>
-
+      <!-- TRANSLATIONS_END -->
     </div>
 
     <!-- View More Button Container -->
@@ -76,6 +78,7 @@
   <div class="footer-content">
     <div class="footer-left">
       <div class="social-links">
+        <a href="https://www.linkedin.com/in/andrew-donnelly-9766b5283/" target="_blank">LinkedIn</a>
         <a href="https://hackaday.io/projects/hacker/1837318" target="_blank">Hackaday</a>
       </div>
       <p>&copy; 2026 Andrew Donnelly</p>
@@ -97,12 +100,22 @@
 
 
 
+
+
+
+
+
+
+
   <!-- View More Script -->
   <script>
     const viewMoreBtn = document.getElementById('view-more-btn');
     const hiddenArticles = document.querySelectorAll('.article-card.hidden');
 
     if (viewMoreBtn) {
+      if (hiddenArticles.length === 0) {
+        viewMoreBtn.style.display = 'none';
+      }
       viewMoreBtn.addEventListener('click', () => {
         hiddenArticles.forEach(article => {
           article.classList.remove('hidden');
