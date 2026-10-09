@@ -121,6 +121,13 @@ main {
   margin-right: auto;
 }
 
+#About_me {
+  background: white;
+  border-radius: 4px;
+  padding: 4rem 3rem;
+
+}
+
 /* Profile Picture Styling */
 .profile-container {
   float: left;
